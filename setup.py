@@ -21,7 +21,7 @@ setup(
     # metadata for upload to PyPI
     author="Markus Siemens",
     author_email="markus@m-siemens.de",
-    description="",  # TODO: Fill this
+    description="Serialization for objects that TinyDB otherwise couldn't handle",
     license="MIT",
     keywords="database nosql",
     url="https://github.com/msiemens/tinydb",
