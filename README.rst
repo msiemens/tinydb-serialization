@@ -26,7 +26,7 @@ In this example we implement a serializer for ``datetime`` objects:
             return obj.strftime('%Y-%m-%dT%H:%M:%S')
 
         def decode(self, s):
-            return datetime.strptime(s, '%Y-%m-%dT%H:%M:%S') 
+            return datetime.strptime(s, '%Y-%m-%dT%H:%M:%S')
 
 Using a Serializer
 ------------------
@@ -44,10 +44,15 @@ You can use your serializer like this:
     >>> db = TinyDB('db.json', storage=serialization)
     >>> db.insert({'date': datetime(2000, 1, 1, 12, 0, 0)})
     >>> db.all()
-    [{'date': datetime.datetime(2000, 1, 1, 12, 0)}] 
+    [{'date': datetime.datetime(2000, 1, 1, 12, 0)}]
 
 Changelog
 *********
+
+**v1.0.1** (2015-11-17)
+-----------------------
+
+- Fix installation via pip (see `issue #1 <https://github.com/msiemens/tinydb-serialization/issues/1>`_)
 
 **v1.0.0** (2015-09-27)
 -----------------------
