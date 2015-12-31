@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
+from copy import deepcopy
 from tinydb import TinyDB
 from tinydb.middlewares import Middleware
 from tinydb.utils import with_metaclass
@@ -92,6 +93,10 @@ class SerializationMiddleware(Middleware):
         return data
 
     def write(self, data):
+        # Work with a copy of the data, so that running a serializer does not
+        # overwrite the original object.
+        data = deepcopy(data)
+
         for serializer_name in self._serializers:
             # If no serializers are registered, this code will just look up
             # the serializer list and continue. But if there are serializers,
