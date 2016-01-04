@@ -49,6 +49,11 @@ You can use your serializer like this:
 Changelog
 *********
 
+**v1.0.2** (2016-01-04)
+-----------------------
+
+- Dont destroy original data when serializing (see `pull request #2 <https://github.com/msiemens/tinydb-serialization/pull/2>`_)
+
 **v1.0.1** (2015-11-17)
 -----------------------
 
