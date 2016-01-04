@@ -29,3 +29,16 @@ def test_serializer(tmpdir):
     db.insert({'int': 2})
     assert db.count(where('date') == date) == 1
     assert db.count(where('int') == 2) == 1
+
+
+def test_serializer_nondestructive(tmpdir):
+    path = str(tmpdir.join('db.json'))
+
+    serializer = SerializationMiddleware(JSONStorage)
+    serializer.register_serializer(DateTimeSerializer(), 'TinyDate')
+    db = TinyDB(path, storage=serializer)
+
+    data = {'date': datetime.utcnow(), 'int': 3}
+    data_before = dict(data)  # implicitly copy
+    db.insert(data)
+    assert data == data_before
