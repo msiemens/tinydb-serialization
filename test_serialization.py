@@ -43,6 +43,7 @@ def test_serializer_nondestructive(tmpdir):
     db.insert(data)
     assert data == data_before
 
+
 def test_serializer_recursive(tmpdir):
     path = str(tmpdir.join('db.json'))
 
@@ -58,5 +59,5 @@ def test_serializer_recursive(tmpdir):
     db.insert({'int': 2})
     assert db.count(where('dates') == date) == 1
     assert db.count(where('int') == 2) == 1
-    assert db.get(where('int')==10).["dates"] == dates
-    
+    assert db.get(where('int')==10)["dates"] == dates
+
