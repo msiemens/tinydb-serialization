@@ -162,14 +162,12 @@ class SerializationMiddleware(Middleware):
                 for eid in table:
                     item = data[table_name][eid]
                     if not data_copied:
-                        print("I'm here!")
                         utils.found = False
                         walk_if_do(item, utils.verify_object, utils.find)
                         if utils.found:
                             data = deepcopy(data)
                             data_copied = True
                             item = data[table_name][eid]
-                            print("Made deepcopy")
                     walk_if_do(
                         item,
                         utils.verify_object,
