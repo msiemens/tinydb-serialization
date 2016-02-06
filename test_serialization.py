@@ -57,7 +57,6 @@ def test_serializer_recursive(tmpdir):
     data = {"dates":dates, "int":10}
     db.insert(data)
     db.insert({'int': 2})
-    assert db.count(where('dates') == date) == 1
+    assert db.count(where('dates').any(where('date')==date)) == 1
     assert db.count(where('int') == 2) == 1
-    assert db.get(where('int')==10)["dates"] == dates
 

@@ -38,6 +38,56 @@ class Serializer(with_metaclass(ABCMeta, object)):
         raise NotImplementedError('To be overriden!')
 
 
+def walk_if_do(d, predicate, action):
+        if isinstance(d, dict):
+            try:
+                dd = d.iteritems()
+            except AttributeError:
+                dd = d.items()
+        else:
+            dd = enumerate(d)
+        for k, v in dd:
+            if predicate(v):
+                action(d, k, v)
+            elif isinstance(v, (dict, list, tuple)):
+                walk_if_do(v, predicate, action)
+
+
+class SerializerUtils(object):
+
+    def __init__(self):
+        self.serializer_name = ""
+        self.serializer = None
+        self.tag = ""
+        self.OBJ_CLASS = None
+        self.found = False
+
+    def verify_string(self, s):
+        try:
+            if s.startswith(self.tag):
+                return True
+        except AttributeError:
+            pass  # Not a string
+        return False
+
+    def decode_inplace(self, d, k, v):
+        encoded = v[len(self.tag):]
+        d[k] = self.serializer.decode(encoded)
+
+    def verify_object(self, obj):
+        return isinstance(obj, self.OBJ_CLASS)
+
+    def encode_inplace(self, d,k,v):
+        encoded = self.serializer.encode(v)
+        tagged = '{{{0}}}:{1}'.format(
+            self.serializer_name,
+            encoded)
+        d[k] = tagged
+
+    def find(self,d,k,v):
+        self.found = True
+
+
 class SerializationMiddleware(Middleware):
     """
     Provide custom serialization for TinyDB.
@@ -68,27 +118,25 @@ class SerializationMiddleware(Middleware):
 
     def read(self):
         data = self.storage.read()
+        utils = SerializerUtils()
 
         if data is None:
             return None
 
         for serializer_name in self._serializers:
-            serializer = self._serializers[serializer_name]
-            tag = '{{{0}}}:'.format(serializer_name)  # E.g: '{TinyDate}:'
+            utils.serializer = self._serializers[serializer_name]
+            utils.tag = '{{{0}}}:'.format(serializer_name) # E.g:'{TinyDate}:'
 
             for table_name in data:
                 table = data[table_name]
 
                 for eid in table:
                     item = data[table_name][eid]
-
-                    for field in item:
-                        try:
-                            if item[field].startswith(tag):
-                                encoded = item[field][len(tag):]
-                                item[field] = serializer.decode(encoded)
-                        except AttributeError:
-                            pass  # Not a string
+                    walk_if_do(
+                        item,
+                        utils.verify_string,
+                        utils.decode_inplace
+                    )
 
         return data
 
@@ -96,7 +144,7 @@ class SerializationMiddleware(Middleware):
         # We only make a copy of the data if any serializer would overwrite
         # existing data.
         data_copied = False
-
+        utils = SerializerUtils()
         for serializer_name in self._serializers:
             # If no serializers are registered, this code will just look up
             # the serializer list and continue. But if there are serializers,
@@ -104,26 +152,28 @@ class SerializationMiddleware(Middleware):
             # For that reason, the lookup of the serialized class is pulled
             # out into the outer loop:
 
-            serializer = self._serializers[serializer_name]
-            serializer_class = serializer.OBJ_CLASS
+            utils.serializer = self._serializers[serializer_name]
+            utils.OBJ_CLASS = utils.serializer.OBJ_CLASS
+            utils.serializer_name = serializer_name
 
             for table_name in data:
                 table = data[table_name]
 
                 for eid in table:
                     item = data[table_name][eid]
-
-                    for field in item:
-                        if isinstance(item[field], serializer_class):
-                            encoded = serializer.encode(item[field])
-                            tagged = '{{{0}}}:{1}'.format(serializer_name,
-                                                          encoded)
-
-                            # Before writing, copy data if we haven't already.
-                            if not data_copied:
-                                 data = deepcopy(data)
-                                 data_copied = True
-
-                            data[table_name][eid][field] = tagged
-
+                    if not data_copied:
+                        print("I'm here!")
+                        utils.found = False
+                        walk_if_do(item, utils.verify_object, utils.find)
+                        if utils.found:
+                            data = deepcopy(data)
+                            data_copied = True
+                            item = data[table_name][eid]
+                            print("Made deepcopy")
+                    walk_if_do(
+                        item,
+                        utils.verify_object,
+                        utils.encode_inplace
+                    )
         self.storage.write(data)
+
