@@ -1,4 +1,4 @@
-tinydb-smartcache
+tinydb-serialization
 ^^^^^^^^^^^^^^^^^
 
 |Build Status| |Coverage| |Version|
