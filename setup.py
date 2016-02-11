@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name="tinydb-serialization",
-    version="1.0.2",
+    version="1.0.3",
     packages=find_packages(),
     install_requires=['tinydb>=2.2.1'],
 
