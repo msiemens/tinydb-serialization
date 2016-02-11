@@ -53,10 +53,9 @@ def test_serializer_recursive(tmpdir):
 
     date = datetime(2000, 1, 1, 12, 0, 0)
     datenow = datetime.utcnow()
-    dates = [{"date":date,"hp":100}, {"date":datenow,"hp":1}]
-    data = {"dates":dates, "int":10}
+    dates = [{'date': date, 'hp': 100}, {'date': datenow, 'hp': 1}]
+    data = {'dates': dates, 'int': 10}
     db.insert(data)
     db.insert({'int': 2})
-    assert db.count(where('dates').any(where('date')==date)) == 1
+    assert db.count(where('dates').any(where('date') == date)) == 1
     assert db.count(where('int') == 2) == 1
-
