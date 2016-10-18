@@ -35,8 +35,13 @@ You can use your serializer like this:
 
 .. code-block:: python
 
+    >>> from tinydb import TinyDB
     >>> from tinydb.storages import JSONStorage
     >>> from tinydb_serialization import SerializationMiddleware
+    >>> from tinydb import Query
+    >>>
+    >>> from datetime import datetime
+    >>>
     >>>
     >>> serialization = SerializationMiddleware()
     >>> serialization.register_serializer(DateTimeSerializer(), 'TinyDate')
@@ -45,6 +50,11 @@ You can use your serializer like this:
     >>> db.insert({'date': datetime(2000, 1, 1, 12, 0, 0)})
     >>> db.all()
     [{'date': datetime.datetime(2000, 1, 1, 12, 0)}]
+    >>> query = Query()
+    >>> db.insert({'date': datetime(2010, 1, 1, 12, 0, 0)})
+    >>> db.search(query.date > datetime(2005, 1, 1))
+    [{'date': datetime.datetime(2010, 1, 1, 12, 0)}]
+
 
 Changelog
 *********
