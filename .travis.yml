@@ -2,7 +2,7 @@ language: python
 sudo: false
 python:
   - "pypy"
-  - "pypy3"
+  - "pypy-5.4"
   - "3.5"
   - "3.4"
   - "3.3"
