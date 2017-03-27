@@ -59,6 +59,12 @@ You can use your serializer like this:
 Changelog
 *********
 
+**v1.0.4** (2017-03-27)
+-----------------------
+
+- Don't modify the original element if it contains a list (see
+  `pull request #5 <https://github.com/msiemens/tinydb-serialization/pull/5>`_)
+
 **v1.0.3** (2016-02-11)
 -----------------------
 
