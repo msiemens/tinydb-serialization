@@ -38,7 +38,7 @@ def test_serializer_nondestructive(tmpdir):
     serializer.register_serializer(DateTimeSerializer(), 'TinyDate')
     db = TinyDB(path, storage=serializer)
 
-    data = {'date': datetime.utcnow(), 'int': 3}
+    data = {'date': datetime.utcnow(), 'int': 3, 'list': []}
     data_before = dict(data)  # implicitly copy
     db.insert(data)
     assert data == data_before

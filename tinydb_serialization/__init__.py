@@ -100,7 +100,7 @@ def has_encodable(element, obj_class):
 
     for key, value in _enumerate_element(element):
         if isinstance(value, (dict, list, tuple)):
-            return has_encodable(value, obj_class)
+            found_encodable |= has_encodable(value, obj_class)
         else:
             found_encodable |= isinstance(value, obj_class)
 
