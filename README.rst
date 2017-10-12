@@ -56,6 +56,8 @@ You can use your serializer like this:
     [{'date': datetime.datetime(2010, 1, 1, 12, 0)}]
 
 
+For a more complexe example that provides better time support, check out `issue #6 <https://github.com/msiemens/tinydb-serialization/issues/6>`_.
+
 Changelog
 *********
 
