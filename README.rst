@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmsiemens%2Ftinydb-serialization.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmsiemens%2Ftinydb-serialization?ref=badge_shield)
+
 tinydb-serialization
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -95,3 +97,7 @@ Changelog
    :target: https://coveralls.io/r/msiemens/tinydb-serialization
 .. |Version| image:: http://img.shields.io/pypi/v/tinydb-serialization.svg?style=flat-square
    :target: https://pypi.python.org/pypi/tinydb-serialization/
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmsiemens%2Ftinydb-serialization.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmsiemens%2Ftinydb-serialization?ref=badge_large)
