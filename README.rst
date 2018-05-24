@@ -36,7 +36,6 @@ You can use your serializer like this:
 .. code-block:: python
 
     >>> from tinydb import TinyDB
-    >>> from tinydb.storages import JSONStorage
     >>> from tinydb_serialization import SerializationMiddleware
     >>> from tinydb import Query
     >>>
