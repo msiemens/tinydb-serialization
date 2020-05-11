@@ -1,15 +1,14 @@
-from abc import ABCMeta, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 from copy import deepcopy
 
 from tinydb import TinyDB
 from tinydb.middlewares import Middleware
-from tinydb.utils import with_metaclass
 
 iteritems = getattr(dict, 'iteritems', dict.items)
 itervalues = getattr(dict, 'itervalues', dict.values)
 
 
-class Serializer(with_metaclass(ABCMeta, object)):
+class Serializer(ABC):
     """
     The abstract base class for Serializers.
     Allows TinyDB to handle arbitrary objects by running them through a list
@@ -17,7 +16,8 @@ class Serializer(with_metaclass(ABCMeta, object)):
     Every serializer has to tell which class it can handle.
     """
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def OBJ_CLASS(self):
         raise NotImplementedError('To be overriden!')
 
@@ -115,7 +115,7 @@ class SerializationMiddleware(Middleware):
     is read from the storage will be deserialized.
     """
 
-    def __init__(self, storage_cls=TinyDB.DEFAULT_STORAGE):
+    def __init__(self, storage_cls=TinyDB.default_storage_class):
         super(SerializationMiddleware, self).__init__(storage_cls)
 
         self._serializers = {}
