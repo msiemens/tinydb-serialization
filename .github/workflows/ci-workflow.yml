@@ -29,5 +29,7 @@ jobs:
       run: |
         poetry run py.test -v --cov=tinydb_serialization
     - name: Upload coverage result
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: |
         poetry run coveralls
