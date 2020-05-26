@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "tinydb-serialization"
+version = "1.0.4"
+description = "Serialization for objects that TinyDB otherwise couldn't handle"
+authors = ["Markus Siemens <markus@m-siemens.de>"]
+license = "MIT"
+
+readme = "README.rst"
+
+keywords = ["database", "nosql"]
+
+classifiers=[
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Database",
+    "Topic :: Database :: Database Engines/Servers",
+    "Topic :: Utilities",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Operating System :: OS Independent"
+]
+
+packages = [
+    { include = "tinydb_serialization" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.5"
+tinydb = "^4.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.4.2"
+coverage = "^5.1"
+coveralls = "^2.0.0"
+pytest-cov = "^2.9.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

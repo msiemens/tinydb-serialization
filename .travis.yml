@@ -5,13 +5,11 @@ python:
   - "3.7"
   - "3.6"
   - "3.5"
+before_install:
+- pip install poetry
 install:
-  - pip install -U pytest
-  - pip install coverage
-  - pip install coveralls
-  - pip install pytest-cov
-  - python setup.py develop
+  - poetry install
 script:
-  py.test -v --cov tinydb_serialization
+  - poetry run py.test -v --cov tinydb_serialization
 after_success:
-  coveralls
+  - poetry run coveralls
