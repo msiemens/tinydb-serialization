@@ -93,9 +93,9 @@ Changelog
 
 - Initial release on PyPI
 
-.. |Build Status| image:: http://img.shields.io/travis/msiemens/tinydb-serialization.svg?style=flat-square
-   :target: https://travis-ci.org/msiemens/tinydb-serialization
-.. |Coverage| image:: http://img.shields.io/coveralls/msiemens/tinydb-serialization.svg?style=flat-square
+.. |Build Status| image:: https://img.shields.io/github/workflow/status/msiemens/tinydb-serialization/Python CI?style=flat-square
+   :target: https://github.com/msiemens/tinydb-serialization/actions?query=workflow%3A%22Python+CI%22
+.. |Coverage| image:: https://img.shields.io/coveralls/msiemens/tinydb-serialization.svg?style=flat-square
    :target: https://coveralls.io/r/msiemens/tinydb-serialization
-.. |Version| image:: http://img.shields.io/pypi/v/tinydb-serialization.svg?style=flat-square
+.. |Version| image:: https://img.shields.io/pypi/v/tinydb-serialization.svg?style=flat-square
    :target: https://pypi.python.org/pypi/tinydb-serialization/
