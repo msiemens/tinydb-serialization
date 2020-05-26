@@ -60,6 +60,11 @@ For a more complexe example that provides better time support, check out `issue 
 Changelog
 *********
 
+**v2.0.0** (2020-05-26)
+-----------------------
+
+- Add TinyDB v4.0.0 support (see `pull request #9 <https://github.com/msiemens/tinydb-serialization/pull/9>`_)
+
 **v1.0.4** (2017-03-27)
 -----------------------
 

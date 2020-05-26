@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tinydb-serialization"
-version = "1.0.4"
+version = "2.0.0"
 description = "Serialization for objects that TinyDB otherwise couldn't handle"
 authors = ["Markus Siemens <markus@m-siemens.de>"]
 license = "MIT"
