@@ -9,40 +9,22 @@ otherwise couldn't handle.
 Usage
 *****
 
-Creating a Serializer
----------------------
+General Usage
+-------------
 
-In this example we implement a serializer for ``datetime`` objects:
-
-.. code-block:: python
-
-    from datetime import datetime
-    from tinydb_serialization import Serializer
-
-    class DateTimeSerializer(Serializer):
-        OBJ_CLASS = datetime  # The class this serializer handles
-
-        def encode(self, obj):
-            return obj.strftime('%Y-%m-%dT%H:%M:%S')
-
-        def decode(self, s):
-            return datetime.strptime(s, '%Y-%m-%dT%H:%M:%S')
-
-Using a Serializer
-------------------
-
-You can use your serializer like this:
+To use a serializer, create a ``SerializationMiddleware`` instance with
+the storage class you want to use and register the serializers you want
+to use. Then you pass the middleware instance as the storage to TinyDB:
 
 .. code-block:: python
 
-    >>> from tinydb import TinyDB
+    >>> from tinydb import TinyDB, Query
     >>> from tinydb_serialization import SerializationMiddleware
-    >>> from tinydb import Query
+    >>> from tinydb_serialization.serializers import DateTimeSerializer
     >>>
     >>> from datetime import datetime
     >>>
-    >>>
-    >>> serialization = SerializationMiddleware()
+    >>> serialization = SerializationMiddleware(JSONStorage)
     >>> serialization.register_serializer(DateTimeSerializer(), 'TinyDate')
     >>>
     >>> db = TinyDB('db.json', storage=serialization)
@@ -54,11 +36,40 @@ You can use your serializer like this:
     >>> db.search(query.date > datetime(2005, 1, 1))
     [{'date': datetime.datetime(2010, 1, 1, 12, 0)}]
 
+Provided Serializers
+--------------------
 
-For a more complexe example that provides better time support, check out `issue #6 <https://github.com/msiemens/tinydb-serialization/issues/6>`_.
+- ``tinydb_serialization.serializers.DateTimeSerializer``: serializes ``datetime`` objects
+  as ISO 8601 formatted strings
+
+Creating Custom Serializers
+------------------
+
+In this example we implement a serializer for ``datetime`` objects (like the one provided
+by this package):
+
+.. code-block:: python
+
+    from datetime import datetime
+    from tinydb_serialization import Serializer
+
+    class DateTimeSerializer(Serializer):
+        OBJ_CLASS = datetime  # The class this serializer handles
+
+        def encode(self, obj):
+            return obj.isoformat()
+
+        def decode(self, s):
+            return datetime.fromisoformat(s)
+
 
 Changelog
 *********
+
+**v2.1.0** (2021-01-23)
+-----------------------
+
+- Include the ``DateTimeSerializer`` in this package (see `issue #10 <https://github.com/msiemens/tinydb-serialization/pull/10>`_)
 
 **v2.0.0** (2020-05-26)
 -----------------------
