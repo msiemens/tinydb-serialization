@@ -70,6 +70,7 @@ Changelog
 -----------------------
 
 - Include the ``DateTimeSerializer`` in this package (see `issue #10 <https://github.com/msiemens/tinydb-serialization/pull/10>`_)
+- Drop Python 3.6 support (as 3.7 is needed for date parsing)
 
 **v2.0.0** (2020-05-26)
 -----------------------
