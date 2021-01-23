@@ -43,7 +43,7 @@ Provided Serializers
   as ISO 8601 formatted strings
 
 Creating Custom Serializers
-------------------
+---------------------------
 
 In this example we implement a serializer for ``datetime`` objects (like the one provided
 by this package):
