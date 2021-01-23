@@ -28,6 +28,10 @@ jobs:
     - name: Run test suite
       run: |
         poetry run py.test -v --cov=tinydb_serialization
+    - name: Verify dist package format
+      run: |
+        poetry build
+        twine check dist/*
     - name: Upload coverage result
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
