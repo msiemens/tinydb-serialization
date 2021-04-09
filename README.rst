@@ -36,6 +36,12 @@ to use. Then you pass the middleware instance as the storage to TinyDB:
     >>> db.search(query.date > datetime(2005, 1, 1))
     [{'date': datetime.datetime(2010, 1, 1, 12, 0)}]
 
+
+**Important:** A ``SerializationMiddleware`` instance always wraps a database's storage.
+This means that the ``SerializationMiddleware`` instance **cannot** be shared
+between multiple ``TinyDB`` instances as they would use the same underlying storage
+instance and thus share all data between both instances.
+
 Provided Serializers
 --------------------
 
