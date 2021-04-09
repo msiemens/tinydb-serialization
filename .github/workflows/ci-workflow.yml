@@ -29,6 +29,7 @@ jobs:
       run: |
         poetry run py.test -v --cov=tinydb_serialization
     - name: Verify dist package format
+      if: !contains(matrix.python-version, '3.7')
       run: |
         poetry build
         twine check dist/*
