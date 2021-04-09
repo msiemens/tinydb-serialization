@@ -19,6 +19,7 @@ to use. Then you pass the middleware instance as the storage to TinyDB:
 .. code-block:: python
 
     >>> from tinydb import TinyDB, Query
+    >>> from tinydb.storages import JSONStorage
     >>> from tinydb_serialization import SerializationMiddleware
     >>> from tinydb_serialization.serializers import DateTimeSerializer
     >>>
