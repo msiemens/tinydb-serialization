@@ -16,10 +16,8 @@ class Serializer(ABC):
     Every serializer has to tell which class it can handle.
     """
 
-    @property
-    @abstractmethod
-    def OBJ_CLASS(self):
-        raise NotImplementedError('To be overridden!')
+    OBJ_CLASS: object
+
     @abstractmethod
     def encode(self, obj):
         """
