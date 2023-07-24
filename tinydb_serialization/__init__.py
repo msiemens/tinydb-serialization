@@ -12,14 +12,11 @@ class Serializer(ABC):
     """
     The abstract base class for Serializers.
     Allows TinyDB to handle arbitrary objects by running them through a list
-    of registerd serializers.
+    of registered serializers.
     Every serializer has to tell which class it can handle.
     """
 
-    @property
-    @abstractmethod
-    def OBJ_CLASS(self):
-        raise NotImplementedError('To be overriden!')
+    OBJ_CLASS: object
 
     @abstractmethod
     def encode(self, obj):
@@ -29,7 +26,7 @@ class Serializer(ABC):
         :return:
         :rtype: str
         """
-        raise NotImplementedError('To be overriden!')
+        raise NotImplementedError('To be overridden!')
 
     @abstractmethod
     def decode(self, s):
@@ -39,7 +36,7 @@ class Serializer(ABC):
         :type s: str
         :return:
         """
-        raise NotImplementedError('To be overriden!')
+        raise NotImplementedError('To be overridden!')
 
 
 def _enumerate_element(element):
@@ -94,20 +91,20 @@ def _encode_deep(element, serializer, tag, obj_class):
             _encode_deep(value, serializer, tag, obj_class)
 
 
-def has_encodable(element, obj_class):
+def has_encodeable(element, obj_class):
     """
-    Check whether the element in question has an encodable item.
+    Check whether the element in question has an encodeable item.
     """
 
-    found_encodable = False
+    found_encodeable = False
 
     for key, value in _enumerate_element(element):
         if isinstance(value, (dict, list, tuple)):
-            found_encodable |= has_encodable(value, obj_class)
+            found_encodeable |= has_encodeable(value, obj_class)
         else:
-            found_encodable |= isinstance(value, obj_class)
+            found_encodeable |= isinstance(value, obj_class)
 
-    return found_encodable
+    return found_encodeable
 
 
 class SerializationMiddleware(Middleware):
@@ -177,7 +174,7 @@ class SerializationMiddleware(Middleware):
 
                 for eid in table:
                     # Before writing, copy data if we haven't already.
-                    if not data_copied and has_encodable(data[table_name][eid],
+                    if not data_copied and has_encodeable(data[table_name][eid],
                                                          obj_class):
                         data = deepcopy(data)
                         data_copied = True
