@@ -65,8 +65,11 @@ def _decode_deep(element, serializer, tag):
 
     for key, value in _enumerate_element(element):
         try:
-            if value.startswith(tag):
-                encoded = value[len(tag):]
+            typed_tag = tag
+            if type(value) == bytes:
+                typed_tag = tag.encode()
+            if value.startswith(typed_tag):
+                encoded = value[len(typed_tag):]
                 element[key] = serializer.decode(encoded)
 
         except AttributeError:
@@ -85,7 +88,7 @@ def _encode_deep(element, serializer, tag, obj_class):
     for key, value in _enumerate_element(element):
         if isinstance(value, obj_class):
             encoded = serializer.encode(value)
-            element[key] = tag + encoded
+            element[key] = (tag if type(encoded) == str else tag.encode()) + encoded
 
         elif isinstance(value, (dict, list, tuple)):
             _encode_deep(value, serializer, tag, obj_class)
