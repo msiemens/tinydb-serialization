@@ -73,6 +73,13 @@ by this package):
 Changelog
 *********
 
+**v2.1.1** (2023-07-24)
+-----------------------
+
+- Fix VSCode Pylance type error (see `pull request #14 <https://github.com/msiemens/tinydb-serialization/pull/14>`_)
+- Add support for storages that encode as binary strings (see `pull request #17 <https://github.com/msiemens/tinydb-serialization/pull/17>`_)
+- Drop Python 3.7 support
+
 **v2.1.0** (2021-01-23)
 -----------------------
 
