@@ -75,8 +75,8 @@ by this package):
 Changelog
 *********
 
-**UNRELEASED**
---------------
+**v2.2.0** (2024-10-05)
+-----------------------
 
 - Include the ``DateSerializer`` in this package (see `issue #16 <https://github.com/msiemens/tinydb-serialization/pull/16>`_)
 
