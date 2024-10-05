@@ -48,6 +48,8 @@ Provided Serializers
 
 - ``tinydb_serialization.serializers.DateTimeSerializer``: serializes ``datetime`` objects
   as ISO 8601 formatted strings
+- ``tinydb_serialization.serializers.DateSerializer``: serializes ``date`` objects
+  as ISO 8601 formatted strings
 
 Creating Custom Serializers
 ---------------------------
@@ -72,6 +74,11 @@ by this package):
 
 Changelog
 *********
+
+**UNRELEASED**
+--------------
+
+- Include the ``DateSerializer`` in this package (see `issue #16 <https://github.com/msiemens/tinydb-serialization/pull/16>`_)
 
 **v2.1.1** (2023-07-24)
 -----------------------
